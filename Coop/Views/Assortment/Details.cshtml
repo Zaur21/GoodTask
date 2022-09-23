@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Coop.Models.AssortmentProduct>
+
+
+@{
+    ViewData["Title"] = "Assortment";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h2>Assortment  "@ViewData["AssortName"]" List </h2>
+                <h2 style="display:none">@ViewData["AssortId"] </h2>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    </br>
+    <tbody >
+        @if(!Model.Any() )
+        {
+            <tr>
+                <td>
+                    Empty List
+                </td>
+            </tr>
+        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Name)      
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.EANCode)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Details", new {  idProDel = item.Products.Id}, new{id = ViewData["AssortId"] })
+            </td>
+        </tr>
+}
+    </tbody>
+
+    <tbody>
+        @foreach (var item in ViewBag.NotIncludProd)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.EANCode
+                </td>
+                <td>
+                    @Html.ActionLink("Add", "Details", new {  idProAdd = item.Id}, new{id = ViewData["AssortId"] })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
